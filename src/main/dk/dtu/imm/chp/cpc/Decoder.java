@@ -38,7 +38,6 @@ public class Decoder {
 
 			if (filename != null && filename != "") {
 
-				File f = new File(filename);
 				FileInputStream fis = new FileInputStream(filename);
 				BufferedReader br = new BufferedReader(new InputStreamReader(
 						fis));
@@ -120,6 +119,9 @@ public class Decoder {
 
 					counter++;
 				}
+				
+				fis.close();
+				br.close();
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

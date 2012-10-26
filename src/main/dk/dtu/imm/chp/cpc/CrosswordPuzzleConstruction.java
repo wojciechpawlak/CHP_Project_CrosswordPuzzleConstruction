@@ -11,7 +11,7 @@ public class CrosswordPuzzleConstruction {
 	ArrayList<String> alphabet;
 	
 	//TODO parse #;_;_
-	char[][] entries; 
+	String[][] entries; 
 	
 	ArrayList<String> strings;
 	
@@ -19,6 +19,10 @@ public class CrosswordPuzzleConstruction {
 	private HeuristicAlgorithm algo;
 	
 	public CrosswordPuzzleConstruction() {
+		decoder = Decoder.getInstance();
+		alphabetSize = decoder.getAlphabetSize();
+		noOfStrings = decoder.getNoOfStrings();
+		puzzleSize = decoder.getPuzzleSize();
 		
 	}
 	
