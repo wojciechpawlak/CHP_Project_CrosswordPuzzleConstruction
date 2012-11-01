@@ -1,10 +1,7 @@
 package dk.dtu.imm.chp.cpc;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,9 +36,11 @@ public class Decoder {
 
 			if (filename != null && filename != "") {
 
-				FileInputStream fis = new FileInputStream(filename);
-				BufferedReader br = new BufferedReader(new InputStreamReader(
-						fis));
+				InputStream is = Decoder.class.getClassLoader()
+						.getResourceAsStream(filename);
+				// FileInputStream fis = new FileInputStream(filename);
+				BufferedReader br = new BufferedReader(
+						new InputStreamReader(is));
 				String strLine;
 				int counter = 0;
 				int lineCounter = 0;
@@ -120,8 +119,8 @@ public class Decoder {
 
 					counter++;
 				}
-				
-				fis.close();
+
+				is.close();
 				br.close();
 			}
 		} catch (Exception e) {
@@ -147,6 +146,30 @@ public class Decoder {
 		else
 			return true;
 
+	}
+
+	public int getAlphabetSize() {
+		return alphabetSize;
+	}
+
+	public int getNoOfStrings() {
+		return noOfStrings;
+	}
+
+	public int getPuzzleSize() {
+		return puzzleSize;
+	}
+
+	public List<Character> getAlphabet() {
+		return alphabet;
+	}
+
+	public char[][] getEntries() {
+		return entries;
+	}
+
+	public List<String> getStrings() {
+		return strings;
 	}
 
 }
