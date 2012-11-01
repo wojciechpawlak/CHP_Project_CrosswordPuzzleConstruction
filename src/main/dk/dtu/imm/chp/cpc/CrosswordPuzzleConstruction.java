@@ -19,10 +19,10 @@ public class CrosswordPuzzleConstruction {
 	private HeuristicAlgorithm algo;
 	
 	public CrosswordPuzzleConstruction() {
-		decoder = Decoder.getInstance();
-		alphabetSize = decoder.getAlphabetSize();
-		noOfStrings = decoder.getNoOfStrings();
-		puzzleSize = decoder.getPuzzleSize();
+//		decoder = Decoder.getInstance();
+//		alphabetSize = decoder.getAlphabetSize();
+//		noOfStrings = decoder.getNoOfStrings();
+//		puzzleSize = decoder.getPuzzleSize();
 		
 	}
 	

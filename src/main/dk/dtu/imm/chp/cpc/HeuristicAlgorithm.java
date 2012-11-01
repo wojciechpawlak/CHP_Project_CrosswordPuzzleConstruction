@@ -23,7 +23,7 @@ public class HeuristicAlgorithm {
 	
 	public void runAlgorithm() {
 
-		String currentWord;
+		String currentWord = null;
 		
 		//	    Sort all the words by length, descending.
 		
