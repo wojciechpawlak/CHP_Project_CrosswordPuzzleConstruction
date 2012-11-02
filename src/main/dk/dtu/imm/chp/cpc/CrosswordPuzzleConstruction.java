@@ -1,33 +1,35 @@
 package dk.dtu.imm.chp.cpc;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class CrosswordPuzzleConstruction {
 	
-	private int alphabetSize;
-	int noOfStrings;
-	int puzzleSize;
+	int alphabetSize = 0;
+	int noOfStrings = 0;
+	int puzzleSize = 0;
 	
-	ArrayList<String> alphabet;
+	List<Character> alphabet = null;
+	char[][] entries = null; 
+	List<String> strings = null;
 	
-	//TODO parse #;_;_
-	String[][] entries; 
-	
-	ArrayList<String> strings;
-	
-	private Decoder decoder;
-	private HeuristicAlgorithm algo;
+	private static Decoder decoder;
+	private static HeuristicAlgorithm algo;
 	
 	public CrosswordPuzzleConstruction() {
-//		decoder = Decoder.getInstance();
-//		alphabetSize = decoder.getAlphabetSize();
-//		noOfStrings = decoder.getNoOfStrings();
-//		puzzleSize = decoder.getPuzzleSize();
+		decoder = Decoder.getInstance();
 		
+		alphabetSize = decoder.getAlphabetSize();
+		noOfStrings = decoder.getNoOfStrings();
+		puzzleSize = decoder.getPuzzleSize();
+		
+		alphabet = decoder.getAlphabet();
+		entries = decoder.getEntries();
+		strings = decoder.getStrings();
 	}
 	
 	public static void main(String[] args) {
-		
+		algo = HeuristicAlgorithm.getInstance();
+		algo.runAlgorithm();
 	}
 	
 }
