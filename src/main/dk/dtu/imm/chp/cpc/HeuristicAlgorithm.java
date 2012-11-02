@@ -1,5 +1,6 @@
 package dk.dtu.imm.chp.cpc;
 
+import java.util.Collections;
 import java.util.List;
 
 public class HeuristicAlgorithm {
@@ -26,6 +27,9 @@ public class HeuristicAlgorithm {
 		String currentWord = null;
 		
 		//	    Sort all the words by length, descending.
+		SizeComparator sc = new SizeComparator();
+		Collections.sort(wordsUsed, sc);
+		
 		
 		//	    Take the first word and place it on the board.
 
