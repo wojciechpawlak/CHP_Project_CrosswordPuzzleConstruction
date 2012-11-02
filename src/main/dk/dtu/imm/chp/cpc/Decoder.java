@@ -131,17 +131,17 @@ public class Decoder {
 
 	private boolean checkCharacterInAlphabet(String s) {
 
-		ArrayList<Boolean> results = new ArrayList<Boolean>();
+		int count = 0;
 
 		for (int i = 0; i < s.length(); i++) {
 			for (Character c : alphabet) {
 				if (s.charAt(i) == c) {
-					results.add(true);
+					count++;
 				}
 			}
 		}
 
-		return results.size() == s.length();
+		return count == s.length();
 	}
 
 	public int getAlphabetSize() {
