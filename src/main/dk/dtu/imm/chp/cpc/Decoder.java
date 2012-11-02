@@ -141,7 +141,7 @@ public class Decoder {
 			}
 		}
 
-		return results.size() != s.length();
+		return results.size() == s.length();
 	}
 
 	public int getAlphabetSize() {

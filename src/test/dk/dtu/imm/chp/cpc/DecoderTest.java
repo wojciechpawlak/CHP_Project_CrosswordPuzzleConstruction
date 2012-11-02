@@ -1,5 +1,6 @@
 package dk.dtu.imm.chp.cpc;
 
+import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.After;
@@ -20,6 +21,8 @@ public class DecoderTest {
 	public void test() {
 		decoder.decode("test01.CPC");
 		
+		assertNotNull(decoder);
+		
 		assertEquals(3, decoder.getAlphabetSize());
 		assertEquals(11, decoder.getNoOfStrings());
 		assertEquals(3, decoder.getPuzzleSize());
@@ -35,6 +38,7 @@ public class DecoderTest {
 		assertEquals("aa", decoder.getStrings().get(0));
 		
 	}
+	
 
 	@After
 	public void cleanUp() {
