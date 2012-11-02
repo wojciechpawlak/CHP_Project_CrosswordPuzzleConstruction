@@ -20,7 +20,6 @@ public class Decoder {
 	private Decoder() {
 		strings = new ArrayList<String>();
 		alphabet = new ArrayList<Character>();
-
 	}
 
 	public static Decoder getInstance() {
@@ -112,9 +111,10 @@ public class Decoder {
 							&& counter < puzzleSize + noOfStrings + 2) {
 
 						if (checkCharacterInAlphabet(strLine)) {
-							strings.add(strLine);
+							if(strLine.length() <= puzzleSize) {
+								strings.add(strLine);
+							} else throw new WrongInputException("Incorrect length of a string according to the size of the puzzle, which is equal to "+puzzleSize+".");
 						}
-
 					}
 
 					counter++;
@@ -122,6 +122,7 @@ public class Decoder {
 
 				is.close();
 				br.close();
+			
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
