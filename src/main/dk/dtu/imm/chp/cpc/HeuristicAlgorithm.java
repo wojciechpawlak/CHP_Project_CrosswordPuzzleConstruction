@@ -1,15 +1,15 @@
 package dk.dtu.imm.chp.cpc;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class HeuristicAlgorithm {
 
 	public static HeuristicAlgorithm algorithm = null;
 	
-	ArrayList<String> wordsUsed;
+	List<String> wordsUsed;
 	
 	private HeuristicAlgorithm() {
-		
+		this.wordsUsed = Decoder.getInstance().getStrings();
 	}
 
 	public static HeuristicAlgorithm getInstance() {
