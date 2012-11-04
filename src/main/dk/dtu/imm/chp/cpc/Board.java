@@ -20,6 +20,35 @@ public class Board {
 		determineVerticalSlots();
 	}
 	
+	public List<PuzzleSlot> getVertcialSlots(){
+		return this.vertical;
+	}
+	
+	public List<PuzzleSlot> getHorizontalSlots(){
+		return this.horizontal;
+	}
+	
+	public boolean fillIn(PuzzleSlot slot, String word){
+		List<Integer> changed = new ArrayList<Integer>();
+		if (slot.getDirection().equals(Direction.HORIZONTAL))
+		{
+		  for (int i = 0; i < word.length(); i++){
+			  char current = this.currEntries[slot.getLine()][slot.getStartInd()+i];
+			  if (current == 0){
+				  changed.add(slot.getStartInd()+i);
+				  this.currEntries[slot.getLine()][slot.getStartInd()+i] = word.charAt(i);
+			  }
+			  else if (current != word.charAt(i)) {
+				  for (Integer j:changed){
+					  this.currEntries[slot.getLine()][j] = 0;
+				  }
+				  return false;
+			  }
+		  }
+		}
+		return true;
+	}
+	
 	private void determineHorizontalSlots() {
 
 		int startInd = 0;
