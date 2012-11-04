@@ -97,7 +97,7 @@ public class Decoder {
 
 						for (int i = 0; i < chars.length; i++) {
 							if (chars[i].equals("#") || chars[i].equals("_"))
-								entries[i][lineCounter] = chars[i].charAt(0);
+								entries[lineCounter][i] = chars[i].charAt(0);
 							else
 								throw new WrongInputException(
 										"Incorrect input in the puzzle part!");
