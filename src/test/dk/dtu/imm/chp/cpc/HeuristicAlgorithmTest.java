@@ -22,7 +22,6 @@ public class HeuristicAlgorithmTest {
 	public void test() {
 		try {
 			algo.runAlgorithm();
-			System.out.println(Decoder.getInstance().getEntries());
 			Assert.assertTrue(true);
 		} catch (Exception e) {
 			e.printStackTrace();
