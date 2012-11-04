@@ -10,7 +10,6 @@ public class HeuristicAlgorithm {
 	private static HeuristicAlgorithm algorithm = null;
 
 	List<String> strings;
-	List<String> wordsUsed;
 	List<Integer> vertical;
 	List<Integer> horizontal;
 	List<PuzzleSlot> slots;
@@ -19,7 +18,6 @@ public class HeuristicAlgorithm {
 
 	private HeuristicAlgorithm() {
 		this.strings = Decoder.getInstance().getStrings();
-		this.wordsUsed = new ArrayList<String>();
 		this.vertical = new ArrayList<Integer>();
 		this.horizontal = new ArrayList<Integer>();
 		this.slots = new ArrayList<PuzzleSlot>();
@@ -34,9 +32,15 @@ public class HeuristicAlgorithm {
 		return algorithm;
 	}
 
-	public boolean runAlgorithm() throws Exception {
+	public boolean runAlgorithm() {
 		
-		
+		if(strings!=null && !strings.isEmpty()) {
+			List<List<String>> segregatedWords = segregateStringsByLength(strings);
+			Board currentBoard = new Board();
+			
+			
+			
+		}
 		return false;
 
 	}

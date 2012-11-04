@@ -34,13 +34,13 @@ public class Board {
 		{
 		  for (int i = 0; i < word.length(); i++){
 			  char current = this.currEntries[slot.getLine()][slot.getStartInd()+i];
-			  if (current == 0){
+			  if (current == '_'){
 				  changed.add(slot.getStartInd()+i);
 				  this.currEntries[slot.getLine()][slot.getStartInd()+i] = word.charAt(i);
 			  }
 			  else if (current != word.charAt(i)) {
 				  for (Integer j:changed){
-					  this.currEntries[slot.getLine()][j] = 0;
+					  this.currEntries[slot.getLine()][j] = '_';
 				  }
 				  return false;
 			  }
