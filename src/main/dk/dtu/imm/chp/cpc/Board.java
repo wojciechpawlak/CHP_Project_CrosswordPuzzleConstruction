@@ -4,11 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Board {
-	List<String> strings;
-	List<PuzzleSlot> vertical;
-	List<PuzzleSlot> horizontal;
-	List<Integer> lengths;
-	char [][] currEntries;
+	
+	private List<String> strings;
+	private List<PuzzleSlot> vertical;
+	private List<PuzzleSlot> horizontal;
+	private List<Integer> lengths;
+	private char [][] currEntries;
 
 	public Board (){
 		this.strings     = Decoder.getInstance().getStrings();
@@ -133,6 +134,7 @@ public class Board {
 		return false;
 	}
 	
+	
 	private void determineHorizontalSlots() {
 
 		int startInd = 0;
@@ -206,4 +208,25 @@ public class Board {
 		
 		return result;
 	}
+
+	public List<PuzzleSlot> getVertical() {
+		return vertical;
+	}
+
+	public List<PuzzleSlot> getHorizontal() {
+		return horizontal;
+	}
+
+	public List<String> getStrings() {
+		return strings;
+	}
+
+	public List<Integer> getLengths() {
+		return lengths;
+	}
+
+	public char[][] getCurrEntries() {
+		return currEntries;
+	}
+	
 }

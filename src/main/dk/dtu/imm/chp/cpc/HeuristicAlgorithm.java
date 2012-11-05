@@ -10,16 +10,14 @@ public class HeuristicAlgorithm {
 	private static HeuristicAlgorithm algorithm = null;
 
 	List<String> strings;
-	List<String> wordsUsed;
 	List<Integer> vertical;
 	List<Integer> horizontal;
 	List<PuzzleSlot> slots;
 	List<Integer> lengths;
-	char [][] currEntries;
+	char[][] currEntries;
 
 	private HeuristicAlgorithm() {
 		this.strings = Decoder.getInstance().getStrings();
-		this.wordsUsed = new ArrayList<String>();
 		this.vertical = new ArrayList<Integer>();
 		this.horizontal = new ArrayList<Integer>();
 		this.slots = new ArrayList<PuzzleSlot>();
@@ -34,63 +32,17 @@ public class HeuristicAlgorithm {
 		return algorithm;
 	}
 
-	public void runAlgorithm() throws Exception {
-
-		boolean answer = false;
+	public boolean runAlgorithm() {
 		
-		currEntries = copyEntries();
-		
-		if(strings != null && !strings.isEmpty()) {
+		if(strings!=null && !strings.isEmpty()) {
 			List<List<String>> segregatedWords = segregateStringsByLength(strings);
-		
-			determineFreeSlots();
+			Board currentBoard = new Board();
 			
-			for(PuzzleSlot p : slots) {
-				
-				for(int a=0; a<lengths.size(); a++) {
-					
-					if(p.getLength() == lengths.get(a)) {
-						
-						List<String> certainList = segregatedWords.get(a);
-						Random r = new Random();
-						int randIndex = r.nextInt(certainList.size());
-						String chosenString = certainList.get(randIndex);
-						
-						int currLine = p.getLine();
-						int currStrInd = 0;
-						int currPos = p.getStartInd();
-
-						while(currPos != currEntries.length)
-						
-							if (currEntries[currLine][currPos] != '#') {
-								currEntries[currLine][currPos] = chosenString.charAt(currStrInd);
-								currStrInd++;
-								currPos++;
-							} else {
-								if(currPos != 0) {
-									break;
-								}
-							}
-						}
-					
-					}
-				
-					if(entriesFilled(currEntries)) break;
-				
-				}
-			}
-
+			
+			
 		}
-		
-	
-	private int countAllPosssibilities() {
-		int count = 0;
-		
-		int max = Collections.max(lengths);
-		
-		
-		
-		return count;
+		return false;
+
 	}
 
 	private void determineFreeSlots() {
@@ -108,17 +60,19 @@ public class HeuristicAlgorithm {
 
 					if (count != 0) {
 						if (startInd < currEntries.length) {
-							slots.add(new PuzzleSlot(i, count, startInd, Direction.HORIZONTAL));
-						} 
+							slots.add(new PuzzleSlot(i, count, startInd,
+									Direction.HORIZONTAL));
+						}
 					}
-					
+
 					count = 0;
 					startInd = j + 1;
 
 				}
 			}
 			if (count != 0)
-				slots.add(new PuzzleSlot(i, count, startInd, Direction.HORIZONTAL));
+				slots.add(new PuzzleSlot(i, count, startInd,
+						Direction.HORIZONTAL));
 
 			startInd = 0;
 
@@ -172,15 +126,15 @@ public class HeuristicAlgorithm {
 		char[][] result = new char[puzzleSize][puzzleSize];
 		char[][] decodedEntries = Decoder.getInstance().getEntries();
 
-		for(int i=0; i<decodedEntries.length; i++) {
-			for(int j=0; j<decodedEntries.length; j++) {
+		for (int i = 0; i < decodedEntries.length; i++) {
+			for (int j = 0; j < decodedEntries.length; j++) {
 				result[i][j] = decodedEntries[i][j];
 			}
 		}
-		
+
 		return result;
 	}
-	
+
 	public List<Integer> getVertical() {
 		return vertical;
 	}
