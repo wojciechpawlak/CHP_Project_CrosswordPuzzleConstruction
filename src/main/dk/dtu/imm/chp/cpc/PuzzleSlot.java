@@ -33,11 +33,13 @@ public class PuzzleSlot {
 
 	@Override
 	public String toString() {
+		
 		if(this.dir.equals(Direction.HORIZONTAL)) {
 			return "[Line: "+this.line+", Length: "+this.length+", startIndex: "+this.startInd+ "]";
 		} else {
 			return "[Column: "+this.line+", Length: "+this.length+", startIndex: "+this.startInd+ "]";
 		}
+	
 	}
 	
 	

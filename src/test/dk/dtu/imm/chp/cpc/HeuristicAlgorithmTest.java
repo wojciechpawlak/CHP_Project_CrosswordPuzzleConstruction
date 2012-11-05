@@ -23,6 +23,7 @@ public class HeuristicAlgorithmTest {
 		try {
 			Board b = new Board();
 			Board result = algo.runAlgorithm(b);
+			System.out.println(result);
 			Assert.assertTrue(true);
 		} catch (Exception e) {
 			e.printStackTrace();

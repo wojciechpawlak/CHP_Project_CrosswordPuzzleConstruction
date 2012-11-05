@@ -9,6 +9,7 @@ public class SlotComparator implements Comparator {
 		
 		PuzzleSlot p1 = (PuzzleSlot) o1;
 		PuzzleSlot p2 = (PuzzleSlot) o2;
+		
 		int l1 = p1.getLength();
 		int l2 = p2.getLength();
 		

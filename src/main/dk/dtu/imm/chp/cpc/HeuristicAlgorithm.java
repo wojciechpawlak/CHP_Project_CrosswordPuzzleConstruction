@@ -16,12 +16,14 @@ public class HeuristicAlgorithm {
 	private List<Integer> lengths;
 	private char[][] currEntries;
 	private Board initialBoard;
+	private List<List<String>> segregatedWords;
 
 	private HeuristicAlgorithm() {
 		this.strings = Decoder.getInstance().getStrings();
 		this.vertical = new ArrayList<Integer>();
 		this.horizontal = new ArrayList<Integer>();
 		this.slots = new ArrayList<PuzzleSlot>();
+		segregatedWords = segregateStringsByLength(strings);
 	}
 
 	public static HeuristicAlgorithm getInstance() {
@@ -36,8 +38,7 @@ public class HeuristicAlgorithm {
 	public Board runAlgorithm(Board currentBoard) {
 
 		if (strings != null && !strings.isEmpty()) {
-			List<List<String>> segregatedWords = segregateStringsByLength(strings);
-
+			
 			if(currentBoard.getAllSlots().isEmpty()) return currentBoard;
 			PuzzleSlot p = currentBoard.getAllSlots().get(0);
 
@@ -64,40 +65,6 @@ public class HeuristicAlgorithm {
 			}
 		}
 		return null;
-	}
-
-	private void determineFreeSlots() {
-
-		char[][] currEntries = Decoder.getInstance().getEntries();
-		int startInd = 0;
-
-		for (int i = 0; i < currEntries.length; i++) {
-			int count = 0;
-
-			for (int j = 0; j < currEntries.length; j++) {
-				if (currEntries[i][j] != '#') {
-					count++;
-				} else if (currEntries[i][j] == '#') {
-
-					if (count != 0) {
-						if (startInd < currEntries.length) {
-							slots.add(new PuzzleSlot(i, count, startInd,
-									Direction.HORIZONTAL));
-						}
-					}
-
-					count = 0;
-					startInd = j + 1;
-
-				}
-			}
-			if (count != 0)
-				slots.add(new PuzzleSlot(i, count, startInd,
-						Direction.HORIZONTAL));
-
-			startInd = 0;
-
-		}
 	}
 
 	private List<List<String>> segregateStringsByLength(List<String> strings) {

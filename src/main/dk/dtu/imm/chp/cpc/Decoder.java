@@ -37,7 +37,7 @@ public class Decoder {
 
 				InputStream is = Decoder.class.getClassLoader()
 						.getResourceAsStream(filename);
-				// FileInputStream fis = new FileInputStream(filename);
+				
 				BufferedReader br = new BufferedReader(
 						new InputStreamReader(is));
 				String strLine;

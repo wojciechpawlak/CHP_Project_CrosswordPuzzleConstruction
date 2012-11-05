@@ -10,10 +10,10 @@ public class Board implements Cloneable {
 	private List<PuzzleSlot> vertical;
 	private List<PuzzleSlot> horizontal;
 	private List<PuzzleSlot> all;
-	private List<Integer> lengths;
 	private char[][] currEntries;
 
 	public Board() {
+		
 		this.strings = Decoder.getInstance().getStrings();
 		this.currEntries = initEntries();
 		this.horizontal = new ArrayList<PuzzleSlot>();
@@ -21,6 +21,7 @@ public class Board implements Cloneable {
 		determineHorizontalSlots();
 		determineVerticalSlots();
 		collectAllSlots();
+	
 	}
 	
 	public Board(Board board) {
@@ -37,9 +38,6 @@ public class Board implements Cloneable {
 		this.vertical = new ArrayList<PuzzleSlot>(board.getVerticalSlots());
 		this.all = new ArrayList<PuzzleSlot>(board.getAllSlots());
 		
-//		Collections.copy(this.horizontal, board.getHorizontalSlots());
-//		Collections.copy(this.vertical, board.getVerticalSlots());
-//		Collections.copy(this.all, board.getAllSlots());
 	}
 
 	private void collectAllSlots() {
@@ -52,65 +50,89 @@ public class Board implements Cloneable {
 			this.all.add(p);
 		}
 		Collections.sort(this.all, new SlotComparator());
-		System.out.println("Sorted.");
+
 	}
 
 	public boolean fillIn(PuzzleSlot slot, String word) {
+		
 		List<Integer> changed = new ArrayList<Integer>();
+		
 		if (slot.getDirection().equals(Direction.HORIZONTAL)) {
+		
 			for (int i = 0; i < word.length(); i++) {
 				char current = this.currEntries[slot.getLine()][slot
 						.getStartInd() + i];
+			
 				if (current == '_') {
+				
 					changed.add(slot.getStartInd() + i);
 					this.currEntries[slot.getLine()][slot.getStartInd() + i] = word
 							.charAt(i);
+					
 					if (!checkWordAt(slot.getStartInd() + i, slot.getLine(),
 							Direction.VERTICAL)) {
+					
 						for (Integer j : changed) {
 							this.currEntries[slot.getLine()][j] = '_';
 						}
+						
 						return false;
 					}
 				} else if (current != word.charAt(i)) {
+				
 					for (Integer j : changed) {
 						this.currEntries[slot.getLine()][j] = '_';
 					}
+					
 					return false;
 				}
 			}
 		} else {
 			for (int i = 0; i < word.length(); i++) {
+				
 				char current = this.currEntries[slot.getStartInd() + i][slot
 						.getLine()];
+				
 				if (current == '_') {
+				
 					changed.add(slot.getStartInd() + i);
 					this.currEntries[slot.getStartInd() + i][slot.getLine()] = word
 							.charAt(i);
+					
 					if (!checkWordAt(slot.getLine(), slot.getStartInd() + i,
 							Direction.HORIZONTAL)) {
+					
 						for (Integer j : changed) {
 							this.currEntries[j][slot.getLine()] = '_';
 						}
+						
 						return false;
 					}
 				} else if (current != word.charAt(i)) {
+					
 					for (Integer j : changed) {
 						this.currEntries[j][slot.getLine()] = '_';
 					}
+			
 					return false;
 				}
 			}
 		}
+		
 		int currentIndex = all.indexOf(slot);
 		all.remove(currentIndex);
+		
 		return true;
 	}
 
 	private boolean checkWordAt(int x, int y, Direction direction) {
+		
 		if (direction.equals(Direction.HORIZONTAL)) {
+		
 			PuzzleSlot predecessor = null;
+			
 			for (PuzzleSlot slot : horizontal) {
+			
 				if (slot.getLine() == y && slot.getStartInd() <= x)
 					if (predecessor == null)
 						predecessor = slot;
@@ -120,22 +142,29 @@ public class Board implements Cloneable {
 
 			// check if predecessor is a filled world
 			for (int i = 0; i < predecessor.getLength(); i++) {
+				
 				if (this.currEntries[y][predecessor.getStartInd() + i] == '_')
 					return true;
+			
 			}
 
 			// check if created word exists
 			String createdWord = new String();
+			
 			for (int i = 0; i < predecessor.getLength(); i++) {
 				createdWord += this.currEntries[y][predecessor.getStartInd() + i];
 			}
+			
 			for (String word : this.strings) {
 				if (word.equals(createdWord))
 					return true;
 			}
 		} else {
+			
 			PuzzleSlot predecessor = null;
+			
 			for (PuzzleSlot slot : vertical) {
+			
 				if (slot.getLine() == x && slot.getStartInd() <= y)
 					if (predecessor == null)
 						predecessor = slot;
@@ -145,19 +174,23 @@ public class Board implements Cloneable {
 
 			// check if predecestor is a filled world
 			for (int i = 0; i < predecessor.getLength(); i++) {
+				
 				if (this.currEntries[predecessor.getStartInd() + i][x] == '_')
 					return true;
 			}
 
 			// check if created word exists
 			String createdWord = new String();
+			
 			for (int i = 0; i < predecessor.getLength(); i++) {
 				createdWord += this.currEntries[predecessor.getStartInd() + i][x];
 			}
+			
 			for (String word : this.strings) {
 				if (word.equals(createdWord))
 					return true;
 			}
+		
 		}
 
 		return false;
@@ -228,6 +261,7 @@ public class Board implements Cloneable {
 	}
 
 	private char[][] initEntries() {
+		
 		int puzzleSize = Decoder.getInstance().getPuzzleSize();
 		char[][] result = new char[puzzleSize][puzzleSize];
 		char[][] decodedEntries = Decoder.getInstance().getEntries();
@@ -251,10 +285,6 @@ public class Board implements Cloneable {
 
 	public List<String> getStrings() {
 		return strings;
-	}
-
-	public List<Integer> getLengths() {
-		return lengths;
 	}
 
 	public char[][] getCurrEntries() {
