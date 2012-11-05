@@ -36,16 +36,101 @@ public class Board {
 			  if (current == 0){
 				  changed.add(slot.getStartInd()+i);
 				  this.currEntries[slot.getLine()][slot.getStartInd()+i] = word.charAt(i);
+				  if (! checkWordAt(slot.getStartInd()+i, slot.getLine(), Direction.VERTICAL)){
+					  for (Integer j:changed){
+						  this.currEntries[slot.getLine()][j] = '_';
+					  }
+					  return false; 
+				  }
 			  }
 			  else if (current != word.charAt(i)) {
 				  for (Integer j:changed){
-					  this.currEntries[slot.getLine()][j] = 0;
+					  this.currEntries[slot.getLine()][j] = '_';
 				  }
 				  return false;
 			  }
 		  }
 		}
+		else {
+			for (int i = 0; i < word.length(); i++){
+				  char current = this.currEntries[slot.getStartInd()+i][slot.getLine()];
+				  if (current == '_'){
+					  changed.add(slot.getStartInd()+i);
+					  this.currEntries[slot.getStartInd()+i][slot.getLine()] = word.charAt(i);
+					  if (! checkWordAt(slot.getLine(), slot.getStartInd()+i, Direction.HORIZONTAL)){
+						  for (Integer j:changed){
+							  this.currEntries[j][slot.getLine()] = '_';
+						  }
+						  return false; 
+					  }
+				  }
+				  else if (current != word.charAt(i)) {
+					  for (Integer j:changed){
+						  this.currEntries[j][slot.getLine()] = '_';
+					  }
+					  return false;
+				  }
+			  }
+		}
 		return true;
+	}
+	
+	private boolean checkWordAt(int x, int y, Direction direction){
+		if (direction.equals(Direction.HORIZONTAL)) {
+			PuzzleSlot predecestor = null;
+			for (PuzzleSlot slot:horizontal){
+				if (slot.getLine() == y && slot.getStartInd() < x)
+					if (predecestor == null)
+						predecestor = slot;
+					else if (predecestor.getStartInd() < slot.getStartInd())
+						predecestor = slot;
+			}
+			
+			//check if predecestor is a filled world
+			for (int i = 0; i < predecestor.getLength(); i++){
+				if(this.currEntries[predecestor.getStartInd() + i][y] == '_')
+					return true;
+			}
+			
+			//check if created word exists
+			String createdWord = new String();
+			for (int i = 0; i > predecestor.getLength(); i++){
+				createdWord += this.currEntries[predecestor.getStartInd() + i][y];
+			}
+			for (String word:this.strings){
+				if (word.equals(createdWord))
+					return true;
+			}
+		}
+		else
+		{
+			PuzzleSlot predecestor = null;
+			for (PuzzleSlot slot:vertical){
+				if (slot.getLine() == x && slot.getStartInd() < y)
+					if (predecestor == null)
+						predecestor = slot;
+					else if (predecestor.getStartInd() < slot.getStartInd())
+						predecestor = slot;
+			}
+			
+			//check if predecestor is a filled world
+			for (int i = 0; i < predecestor.getLength(); i++){
+				if(this.currEntries[x][predecestor.getStartInd() + i] == '_')
+					return true;
+			}
+			
+			//check if created word exists
+			String createdWord = new String();
+			for (int i = 0; i > predecestor.getLength(); i++){
+				createdWord += this.currEntries[x][predecestor.getStartInd() + i];
+			}
+			for (String word:this.strings){
+				if (word.equals(createdWord))
+					return true;
+			}
+		}
+		
+		return false;
 	}
 	
 	private void determineHorizontalSlots() {
@@ -121,6 +206,4 @@ public class Board {
 		
 		return result;
 	}
-	
-	
 }
