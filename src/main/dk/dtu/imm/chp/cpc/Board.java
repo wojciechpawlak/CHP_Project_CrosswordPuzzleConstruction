@@ -272,5 +272,18 @@ public class Board implements Cloneable {
 			return null;
 		}
 	}
+	
+	@Override
+	public String toString() {
+		String result = "";
+		for(int i=0; i<currEntries.length; i++) {
+			result += " | ";
+			for(int j=0; j<currEntries.length; j++) {
+				result += currEntries[i][j] + " | ";
+			}
+			result+="\n";
+		}
+		return result;
+	}
 
 }
