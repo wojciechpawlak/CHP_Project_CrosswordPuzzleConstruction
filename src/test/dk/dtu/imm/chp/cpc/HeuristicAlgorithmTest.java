@@ -21,7 +21,8 @@ public class HeuristicAlgorithmTest {
 	@Test
 	public void test() {
 		try {
-			algo.runAlgorithm();
+			Board b = new Board();
+			algo.runAlgorithm(b);
 			Assert.assertTrue(true);
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -9,12 +9,13 @@ public class HeuristicAlgorithm {
 
 	private static HeuristicAlgorithm algorithm = null;
 
-	List<String> strings;
-	List<Integer> vertical;
-	List<Integer> horizontal;
-	List<PuzzleSlot> slots;
-	List<Integer> lengths;
-	char[][] currEntries;
+	private List<String> strings;
+	private List<Integer> vertical;
+	private List<Integer> horizontal;
+	private List<PuzzleSlot> slots;
+	private List<Integer> lengths;
+	private char[][] currEntries;
+	private Board initialBoard;
 
 	private HeuristicAlgorithm() {
 		this.strings = Decoder.getInstance().getStrings();
@@ -32,17 +33,25 @@ public class HeuristicAlgorithm {
 		return algorithm;
 	}
 
-	public boolean runAlgorithm() {
+	public Board runAlgorithm(Board currentBoard) {
 		
 		if(strings!=null && !strings.isEmpty()) {
 			List<List<String>> segregatedWords = segregateStringsByLength(strings);
-			Board currentBoard = new Board();
 			
+			List<String> longestWords = segregatedWords.get(segregatedWords.size()-1);
+			PuzzleSlot p = currentBoard.getAllSlots().get(0);
 			
-			
+			for(String s : longestWords) {
+				Board newBoard = new Board(currentBoard);
+				if (newBoard.fillIn(p, s)) {
+					Board result = runAlgorithm(newBoard);
+					if (result != null)
+						return result;
+				}
+					
+			}
 		}
-		return false;
-
+		return null;
 	}
 
 	private void determineFreeSlots() {

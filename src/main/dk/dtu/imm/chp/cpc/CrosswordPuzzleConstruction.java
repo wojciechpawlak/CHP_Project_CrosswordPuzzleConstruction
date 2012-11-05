@@ -30,7 +30,8 @@ public class CrosswordPuzzleConstruction {
 	public static void main(String[] args) {
 		try {
 			algo = HeuristicAlgorithm.getInstance();
-			algo.runAlgorithm();
+			Board initialBoard = new Board();
+			algo.runAlgorithm(initialBoard);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
