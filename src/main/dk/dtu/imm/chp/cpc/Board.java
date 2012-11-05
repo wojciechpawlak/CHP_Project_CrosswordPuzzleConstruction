@@ -126,8 +126,8 @@ public class Board implements Cloneable {
 
 			// check if created word exists
 			String createdWord = new String();
-			for (int i = 0; i > predecessor.getLength(); i++) {
-				createdWord += this.currEntries[predecessor.getStartInd() + i][y];
+			for (int i = 0; i < predecessor.getLength(); i++) {
+				createdWord += this.currEntries[y][predecessor.getStartInd() + i];
 			}
 			for (String word : this.strings) {
 				if (word.equals(createdWord))
@@ -151,9 +151,8 @@ public class Board implements Cloneable {
 
 			// check if created word exists
 			String createdWord = new String();
-			for (int i = 0; i > predecessor.getLength(); i++) {
-				createdWord += this.currEntries[x][predecessor.getStartInd()
-						+ i];
+			for (int i = 0; i < predecessor.getLength(); i++) {
+				createdWord += this.currEntries[predecessor.getStartInd() + i][x];
 			}
 			for (String word : this.strings) {
 				if (word.equals(createdWord))

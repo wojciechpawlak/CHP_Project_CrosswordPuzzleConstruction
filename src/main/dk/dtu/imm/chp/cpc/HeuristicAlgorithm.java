@@ -34,21 +34,33 @@ public class HeuristicAlgorithm {
 	}
 
 	public Board runAlgorithm(Board currentBoard) {
-		
-		if(strings!=null && !strings.isEmpty()) {
+
+		if (strings != null && !strings.isEmpty()) {
 			List<List<String>> segregatedWords = segregateStringsByLength(strings);
-			
-			List<String> longestWords = segregatedWords.get(segregatedWords.size()-1);
+
+			if(currentBoard.getAllSlots().isEmpty()) return currentBoard;
 			PuzzleSlot p = currentBoard.getAllSlots().get(0);
-			
-			for(String s : longestWords) {
-				Board newBoard = new Board(currentBoard);
-				if (newBoard.fillIn(p, s)) {
-					Board result = runAlgorithm(newBoard);
-					if (result != null)
-						return result;
+
+			List<String> certainList = null;
+
+			for (List<String> l : segregatedWords) {
+				if (l.get(0).length() == p.getLength()) {
+					certainList = l;
+					break;
 				}
-					
+			}
+
+			if (certainList != null) {
+
+				for (String s : certainList) {
+					Board newBoard = new Board(currentBoard);
+					if (newBoard.fillIn(p, s)) {
+						Board result = runAlgorithm(newBoard);
+						if (result != null)
+							return result;
+					}
+
+				}
 			}
 		}
 		return null;
